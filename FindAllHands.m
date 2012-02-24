@@ -1,6 +1,9 @@
 function [ bounding_box ] = FindAllHands( directory, start, finish )
-%FINDALLHANDS Summary of this function goes here
-%   Detailed explanation goes here
+%FINDALLHANDS Finds all the bounding boxes in a directory
+%   Input: the directory within the train directory e.g. 1-1, the starting
+%   image number and the finishing image number. For example, to call this
+%   function on the 1-1 directory you would call FindAllHands('1-1', 54,
+%   70)
 base_location = strcat('train/', directory, '/');
 
 for i=start:finish,

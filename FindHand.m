@@ -1,6 +1,8 @@
 function [ bounding_box ] = FindHand( image_path, background_image)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+%FindHand Finds the hand in the image
+%   Input: the full path of the image, a background image to use for
+%   subtraction
+%   Output: the bounding box surrounding the hand
 
 image = imread(image_path, 'jpg');
 background = imread(background_image, 'jpg');
@@ -18,8 +20,36 @@ dilate = bwmorph(eroded, 'dilate', 2);
 
 labeled = bwlabel(dilate, 4);
 stats = regionprops(labeled, ['basic']);
+[N,W] = size(stats);
 
-bounding_box = stats.BoundingBox
+if N < 1
+    return
+end
+
+id = zeros(N);
+for i = 1 : N
+    id(i) = i;
+end
+for i = 1 : N-1
+    for j = i+1 : N
+      if stats(i).Area < stats(j).Area
+        tmp = stats(i);
+        stats(i) = stats(j);
+        stats(j) = tmp;
+        tmp = id(i);
+        id(i) = id(j);
+        id(j) = tmp;
+      end
+      
+    end
+end
+
+  % make sure that there is at least 1 big region
+  if stats(1).Area < 100 
+    return
+  end
+
+bounding_box = stats(1).BoundingBox;
 
 figure, imshow(image)
 rectangle('Position', bounding_box,'EdgeColor','b');
