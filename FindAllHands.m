@@ -26,6 +26,10 @@ for i=start:finish,
     
     bounding_box = FindHand(im_path, 'background1.jpg');
     
+    if bounding_box(3) == 0 || bounding_box(4) == 0
+        continue
+    end
+    
     ul_x = bounding_box(1);
     ul_y = bounding_box(2);
     btr_x = ul_x + bounding_box(3);
@@ -49,5 +53,6 @@ for i=start:finish,
     
 end
 
+close all
 bounding_box = [leftmost, topmost, rightmost - leftmost, bottommost - topmost]
 

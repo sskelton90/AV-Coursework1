@@ -11,18 +11,22 @@ background = imread(background_image, 'jpg');
 
 foreground = zeros(MR, MC);
 
-foreground = (abs(image(:,:,1) - background(:,:,1)) > 10) ...
-    | (abs(image(:,:,2) - background(:,:,2)) > 10) ...
-    | (abs(image(:,:,3) - background(:,:,3)) > 10);
+foreground = (abs(image(:,:,1) - background(:,:,1)) > 5) ...
+    | (abs(image(:,:,2) - background(:,:,2)) > 5) ...
+    | (abs(image(:,:,3) - background(:,:,3)) > 5);
 
-eroded = bwmorph(foreground, 'erode', 2);
-dilate = bwmorph(eroded, 'dilate', 2);
+% figure, imshow(foreground)
 
-labeled = bwlabel(dilate, 4);
+se = strel('disk', 8);
+eroded = imopen(foreground, se);
+% figure, imshow(eroded)
+
+labeled = bwlabel(eroded, 4);
 stats = regionprops(labeled, ['basic']);
 [N,W] = size(stats);
 
 if N < 1
+    bounding_box = [0,0,0,0];
     return
 end
 
@@ -43,15 +47,15 @@ for i = 1 : N-1
       
     end
 end
-
-  % make sure that there is at least 1 big region
-  if stats(1).Area < 100 
-    return
-  end
+% make sure that there is at least 1 big region
+%   if stats(1).Area < 100 
+%     return
+%   end
 
 bounding_box = stats(1).BoundingBox;
 
 figure, imshow(image)
+% figure, imshow(foreground)
 rectangle('Position', bounding_box,'EdgeColor','b');
 
 end
