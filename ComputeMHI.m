@@ -12,6 +12,7 @@ background = imcrop(background, bounding_box);
 
 thresholded = cell(1, finish-start);
 
+
 for i=start:finish,
     s = num2str(i);
     
@@ -25,17 +26,26 @@ for i=start:finish,
     
     image = imread(im_path, 'jpg');
     
+    
+    
     %figure, imshow(imcrop(image, bounding_box))
     current_image = imcrop(image, bounding_box);
     
+%     figure, imshow(current_image)
+    
     %diff = imabsdiff(current_image, last_image);
-    diff = (abs(current_image(:,:,1) - background(:,:,1)) > 25) ...
-    | (abs(current_image(:,:,2) - background(:,:,2)) > 25) ...
-    | (abs(current_image(:,:,3) - background(:,:,3)) > 25);
+    diff = (abs(current_image(:,:,1) - background(:,:,1)) > 20) ...
+    | (abs(current_image(:,:,2) - background(:,:,2)) > 20) ...
+    | (abs(current_image(:,:,3) - background(:,:,3)) > 20);
 
-    se2 = strel('disk', 4);
-    trythis = bwareaopen(diff, 15);
-    dilated = imdilate(trythis, strel('disk', 4));
+    se2 = strel('disk', 5);
+    trythis = bwareaopen(diff, 500);
+    
+%     figure, imshow(trythis)
+
+    dilated = imdilate(trythis, strel('disk', 3));
+    %figure, imshow(dilated)
+    
     eroded = uint8(imopen(dilated, se2));
     
     %final = eroded/(finish-start);
