@@ -6,6 +6,8 @@ function [ bounding_box ] = FindAllHands( directory, start, finish )
 %   70)
 %   Output: The bounding box that bounds all the bounding boxes found from
 %   each of the images.
+
+directory
 base_location = strcat('train/', directory, '/');
 
 leftmost = 10000;
@@ -13,7 +15,9 @@ rightmost = 0;
 topmost = 10000;
 bottommost = 0;
 
-for i=start:finish,
+current = [leftmost, topmost, rightmost - leftmost, bottommost - topmost];
+
+for i=start+3:finish,
     s = num2str(i);
     
     if length(s) < 4
@@ -25,8 +29,9 @@ for i=start:finish,
     im_path = strcat(base_location, im_name, '.jpg');
     
     bounding_box = FindHand(im_path, 'background1.jpg');
+    %|| (rectint(bounding_box, current) == 0 && ~(i == start))
     
-    if bounding_box(3) == 0 || bounding_box(4) == 0
+    if bounding_box(3) == 0 || bounding_box(4) == 0 || ~RectIntersect(bounding_box, current)
         continue
     end
     
@@ -51,6 +56,8 @@ for i=start:finish,
         bottommost = btr_y;
     end
     
+    current = [leftmost, topmost, rightmost - leftmost, bottommost - topmost];
+    rectangle('Position', current,'EdgeColor','r');
 end
 
 close all

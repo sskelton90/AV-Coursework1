@@ -11,17 +11,29 @@ background = imread(background_image, 'jpg');
 
 foreground = zeros(MR, MC);
 
-foreground = (abs(image(:,:,1) - background(:,:,1)) > 5) ...
-    | (abs(image(:,:,2) - background(:,:,2)) > 5) ...
-    | (abs(image(:,:,3) - background(:,:,3)) > 5);
+%figure, imshow(image)
 
-% figure, imshow(foreground)
+foreground = (abs(image(:,:,1) - background(:,:,1)) > 25) ...
+    | (abs(image(:,:,2) - background(:,:,2)) > 25) ...
+    | (abs(image(:,:,3) - background(:,:,3)) > 25);
 
-se = strel('disk', 8);
-eroded = imopen(foreground, se);
-% figure, imshow(eroded)
+se2 = strel('disk', 4);
 
-labeled = bwlabel(eroded, 4);
+%figure, imshow(foreground)
+
+trythis = bwareaopen(foreground, 25);
+% figure, imshow(trythis)
+
+dilated = imdilate(trythis, strel('disk', 4));
+% figure, imshow(dilated)
+
+eroded = imopen(dilated, se2);
+figure, imshow(eroded)
+
+%trythis = bwareaopen(eroded, 1000);
+%figure, imshow(trythis)
+
+labeled = bwlabel(eroded, 8);
 stats = regionprops(labeled, ['basic']);
 [N,W] = size(stats);
 
@@ -48,14 +60,14 @@ for i = 1 : N-1
     end
 end
 % make sure that there is at least 1 big region
-%   if stats(1).Area < 100 
-%     return
-%   end
+if stats(1).Area < 200
+    bounding_box = [0,0,0,0];
+    return
+end
 
 bounding_box = stats(1).BoundingBox;
 
 figure, imshow(image)
-% figure, imshow(foreground)
 rectangle('Position', bounding_box,'EdgeColor','b');
 
 end
