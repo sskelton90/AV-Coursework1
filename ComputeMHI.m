@@ -7,6 +7,11 @@ base_location = strcat('train/', directory, '/');
 
 bounding_box = FindAllHands(directory, start, finish);
 
+background = imread('background1.jpg', 'jpg');
+background = imcrop(background, bounding_box);
+
+thresholded = cell(1, finish-start);
+
 for i=start:finish,
     s = num2str(i);
     
@@ -20,9 +25,46 @@ for i=start:finish,
     
     image = imread(im_path, 'jpg');
     
-    figure, imshow(imcrop(image, bounding_box))    
+    %figure, imshow(imcrop(image, bounding_box))
+    current_image = imcrop(image, bounding_box);
+    
+    %diff = imabsdiff(current_image, last_image);
+    diff = (abs(current_image(:,:,1) - background(:,:,1)) > 25) ...
+    | (abs(current_image(:,:,2) - background(:,:,2)) > 25) ...
+    | (abs(current_image(:,:,3) - background(:,:,3)) > 25);
+
+    se2 = strel('disk', 4);
+    trythis = bwareaopen(diff, 15);
+    dilated = imdilate(trythis, strel('disk', 4));
+    eroded = uint8(imopen(dilated, se2));
+    
+    %final = eroded/(finish-start);
+    
+    eroded = eroded * 255;
+
+    %figure, imshow(eroded);
+    
+    thresholded{i-start+1} = eroded;
 end
+
+x = zeros(size(thresholded{1}));
+x = thresholded{1};
+factor = 1/(finish-start) * 255;
+
+
+for i=2:finish-start,
+    x = imsubtract(x, factor);
+    x = imadd(x, thresholded{i});
+end
+
+figure, imshow(x);
+w = waitforbuttonpress;
+
+%x = cell(1, finish-start);
+%x{1} = zeros(bounding_box(3), bounding_box(4));
+%for i=2:finish-start,
+%    x{i} = abs(thresholded{i}-thresholded{i-1} 
+%end
 
 close all
 end
-
