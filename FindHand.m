@@ -28,7 +28,7 @@ dilated = imdilate(trythis, strel('disk', 4));
 % figure, imshow(dilated)
 
 eroded = imopen(dilated, se2);
-figure, imshow(eroded)
+%figure, imshow(eroded)
 
 %trythis = bwareaopen(eroded, 1000);
 %figure, imshow(trythis)
@@ -67,7 +67,7 @@ end
 
 bounding_box = stats(1).BoundingBox;
 
-figure, imshow(image)
+%figure, imshow(image)
 rectangle('Position', bounding_box,'EdgeColor','b');
 
 end
