@@ -76,5 +76,7 @@ w = waitforbuttonpress;
 %    x{i} = abs(thresholded{i}-thresholded{i-1} 
 %end
 
+output_args = x;
+
 close all
 end
