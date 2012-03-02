@@ -31,5 +31,8 @@ cc = tc / double(area);
 %Calculate translation invariant moment
 tim = TranslationInvariant(mhi, cr, cc, 1, 1) %translation invariant moment for u=1, v=1
 
+%Calculate scale invariant moment
+sim = ScaleInvariant(tim, area, 1, 1)
+
 end
 
