@@ -1,4 +1,4 @@
-function [ output_args ] = ComputeDescriptor( directory, start, finish )
+function [ feature_vector ] = ComputeDescriptor( directory, start, finish )
 %COMPUTEDESCRIPTOR Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -64,7 +64,7 @@ ci6 = 100 * imag(s30 * s12 * s12 * s12);
 perim = bwarea(bwperim(mhi,4));
 compactness = perim*perim / (4*pi*area);
 
-feature_vector = [compactness, ci1, ci2, ci3, ci4, ci5, ci6]
+feature_vector = [compactness, ci1, ci2, ci3, ci4, ci5, ci6];
 
 end
 

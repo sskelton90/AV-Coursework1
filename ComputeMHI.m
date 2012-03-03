@@ -2,7 +2,6 @@ function [ output_args ] = ComputeMHI( directory, start, finish )
 %COMPUTEMHI Summary of this function goes here
 %   Detailed explanation goes here
 
-directory
 base_location = strcat('train/', directory, '/');
 
 bounding_box = FindAllHands(directory, start, finish);
@@ -67,8 +66,8 @@ for i=2:finish-start,
     x = imadd(x, thresholded{i});
 end
 
-figure, imshow(x);
-w = waitforbuttonpress;
+%figure, imshow(x);
+%w = waitforbuttonpress;
 
 %x = cell(1, finish-start);
 %x{1} = zeros(bounding_box(3), bounding_box(4));

@@ -7,7 +7,6 @@ function [ bounding_box ] = FindAllHands( directory, start, finish )
 %   Output: The bounding box that bounds all the bounding boxes found from
 %   each of the images.
 
-directory
 base_location = strcat('train/', directory, '/');
 
 leftmost = 10000;
@@ -61,5 +60,5 @@ for i=start+3:finish,
 end
 
 close all
-bounding_box = [leftmost, topmost, rightmost - leftmost, bottommost - topmost]
+bounding_box = [leftmost, topmost, rightmost - leftmost, bottommost - topmost];
 
