@@ -66,5 +66,11 @@ compactness = perim*perim / (4*pi*area);
 
 feature_vector = [compactness, ci1, ci2, ci3, ci4, ci5, ci6];
 
+m1 = mean(feature_vector);
+m2 = max(feature_vector);
+
+feature_vector = feature_vector - m1;
+feature_vector = feature_vector / m2;
+
 end
 
