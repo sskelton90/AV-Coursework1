@@ -38,6 +38,6 @@ function [] = TrainSystem()
     % save training data        
     eval(['save ', 'model',' means invcors aprioris']);
     
-    classify(vecs(24,:), 3, means, invcors, 7, aprioris)
+    Classify(vecs(24,:), 3, means, invcors, 7, aprioris)
 end
 
