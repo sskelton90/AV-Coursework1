@@ -2,7 +2,7 @@ function [] = TrainSystem()
 %TRAINSYSTEM Summary of this function goes here
 %   Detailed explanation goes here
 
-    vecs = zeros(24, 7);
+    vecs = zeros(22, 5);
     vecs(1,:) = ComputeDescriptor('1-1', 54, 70);
     vecs(2,:) = ComputeDescriptor('1-2', 111, 128);
     vecs(3,:) = ComputeDescriptor('1-3', 167, 186);
@@ -25,15 +25,16 @@ function [] = TrainSystem()
     vecs(20,:) = ComputeDescriptor('3-5', 1226, 1242);
     vecs(21,:) = ComputeDescriptor('3-6', 1279, 1295);
     vecs(22,:) = ComputeDescriptor('3-7', 1567, 1586);
-    vecs(23,:) = ComputeDescriptor('3-8', 1622, 1639);
-    vecs(24,:) = ComputeDescriptor('3-9', 1676, 1694);
+%     vecs(22,:) = ComputeDescriptor('3-8', 1622, 1639);
+%     vecs(23,:) = ComputeDescriptor('3-9', 1676, 1694);
+    
     
     f = fopen('train/labels');
-    t = textscan(f, '%s\t%d', 24);
+    t = textscan(f, '%s\t%d', 22);
     
-    classes = t{1,2}';
+    classes = t{1,2};
     
-    [means,invcors, aprioris] = BuildModel(7, vecs, 21, 3, classes)
+    [means, invcors, aprioris] = BuildModel(5, vecs, 22, 3, classes);
     
     % save training data        
     eval(['save ', 'model',' means invcors aprioris']);

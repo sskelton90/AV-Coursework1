@@ -6,7 +6,7 @@ function [Means,Invcors,Aprioris] = Buildmodel(Dim,Vecs,N,Numclass,Classes)
 
         % get means for class i
         samples = find(Classes == i);
-        M = length(samples);       % number of observations
+        M = length(samples);      % number of observations
         if M < 2
             ['Error: class ',int2str(i),' has insufficient data']
             Means(i,:) = zeros(1,Dim);
@@ -15,9 +15,9 @@ function [Means,Invcors,Aprioris] = Buildmodel(Dim,Vecs,N,Numclass,Classes)
               Invcors(i,j,j) = 1;
             end
         else
-            classvecs = Vecs(samples,:);
+            classvecs = Vecs(samples,:)
             mn = mean(classvecs);
-            Means(i,:) = mn;
+            Means(i,:) = mn; 
             diffs = classvecs - ones(M,1)*mn;
             Invcors(i,:,:) = inv(diffs'*diffs/(M-1));
         end
