@@ -1,0 +1,13 @@
+tim
+sim
+compactness
+ci1
+ci2
+ci3
+ci4
+ci5
+ci6
+
+tim sim - diagonal line
+tim compactness - diagonal line
+tim ci1 - 
