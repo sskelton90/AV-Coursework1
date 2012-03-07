@@ -8,16 +8,16 @@ ci4
 ci5
 ci6
 
-tim sim - diagonal line
-tim compactness - diagonal line
-tim ci1 - 
+tim sim - no grouping
+tim compactness - no grouping
+tim ci1 - no grouping
 tim ci2 - 
 tim ci3 -
 tim ci4 -
 tim ci5 -
 tim ci6 -
 compactness ci1 -
-compactness ci2 -
+compactness ci2 - tiny bit of grouping?
 compactness ci3 -
 compactness ci4 -
 compactness ci5 -
