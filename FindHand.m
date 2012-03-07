@@ -19,7 +19,7 @@ foreground = (abs(image(:,:,1) - background(:,:,1)) > 25) ...
 
 se2 = strel('disk', 4);
 
-%figure, imshow(foreground)
+% figure, imshow(foreground)
 
 trythis = bwareaopen(foreground, 25);
 % figure, imshow(trythis)
