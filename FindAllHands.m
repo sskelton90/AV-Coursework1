@@ -16,7 +16,7 @@ bottommost = 0;
 
 current = [leftmost, topmost, rightmost - leftmost, bottommost - topmost];
 
-for i=start+3:finish,
+for i=start+4:finish,
     s = num2str(i);
     
     if length(s) < 4
