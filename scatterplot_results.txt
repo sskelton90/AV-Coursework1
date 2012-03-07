@@ -11,3 +11,29 @@ ci6
 tim sim - diagonal line
 tim compactness - diagonal line
 tim ci1 - 
+tim ci2 - 
+tim ci3 -
+tim ci4 -
+tim ci5 -
+tim ci6 -
+compactness ci1 -
+compactness ci2 -
+compactness ci3 -
+compactness ci4 -
+compactness ci5 -
+compactness ci6 -
+ci1 ci2 -
+ci1 ci3 -
+ci1 ci4 -
+ci1 ci5 -
+ci1 ci6 -
+ci2 ci3 -
+ci2 ci4 -
+ci2 ci5 -
+ci2 ci6 -
+ci3 ci4 -
+ci3 ci5 -
+ci3 ci6 -
+ci4 ci5 -
+ci4 ci6 -
+ci5 ci6 -
