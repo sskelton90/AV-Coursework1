@@ -5,7 +5,7 @@ function [ feature_vector ] = ComputeDescriptor( directory, start, finish )
 mhi = ComputeMHI(directory, start, finish);
 
 [width, height] = size(mhi);
-area = 0;
+area = 0.0;
 cr = 0.0; % center of mass
 cc = 0.0;
 
@@ -23,14 +23,19 @@ for x=1:width,
     end
 end
 
+
 cr = tr / double(area);
 cc = tc / double(area);
 
 %Calculate translation invariant moment
-tim = TranslationInvariant(mhi, cr, cc, 1, 1); %translation invariant moment for u=1, v=1
+tim11 = TranslationInvariant(mhi, cr, cc, 1, 1); %translation invariant moment for u=1, v=1
+tim20 = TranslationInvariant(mhi, cr, cc, 2, 0);
+tim22 = TranslationInvariant(mhi, cr, cc, 2, 2);
 
 %Calculate scale invariant moment
-sim = ScaleInvariant(tim, area, 1, 1);
+sim11 = ScaleInvariant(tim11, area, 1, 1);
+sim20 = ScaleInvariant(tim20, area, 2, 0);
+sim22 = ScaleInvariant(tim22, area, 2, 2);
 
 %Calculate rotation invariant moments
 c11 = RotationInvariant(mhi, cr, cc, 1, 1);
@@ -48,9 +53,9 @@ s30 = c30 / (area^2.5);
 
 %Rescaled rotation invariant moments
 ci1 = real(s11);
-ci2 = real(10 * s21 * s12);
-ci3 = 1000 * real(s20 * s12 * s12);
-ci4 = 1000 * imag(s20 * s12 * s12);
+ci2 = real(1000 * s21 * s12);
+ci3 = 10000 * real(s20 * s12 * s12);
+ci4 = 10000 * imag(s20 * s12 * s12);
 ci5 = 1000000 * real(s30 * s12 * s12 * s12);
 ci6 = 1000000 * imag(s30 * s12 * s12 * s12);
 
@@ -62,7 +67,7 @@ ci6 = 1000000 * imag(s30 * s12 * s12 * s12);
 perim = bwarea(bwperim(mhi,4));
 compactness = perim*perim / (4*pi*area);
 
-feature_vector = [ci1, ci2, ci3, ci4, ci5, ci6];
+feature_vector = [compactness, sim11, sim20, sim22];
 % 
 m1 = mean(feature_vector);
 m2 = max(feature_vector);

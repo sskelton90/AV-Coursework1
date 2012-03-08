@@ -1,5 +1,5 @@
 N = 24; %Sets of data
-M = 6; %Size of feature vectors
+M = 4; %Size of feature vectors
 %index = 3; %Which piece of data in each label to classify/test
 
 clearvars training_data training_classes;
