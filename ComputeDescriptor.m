@@ -16,9 +16,7 @@ tc = 0.0;
 %calculate area of mhi and center of mass
 for x=1:width,
     for y=1:height,
-        if (mhi(x,y) > 0)
-            area = area + 1;
-        end
+        area = area + double(mhi(x, y)) / 255.0;
         
         tr = tr + x * (double(mhi(x, y)) / 255.0);
         tc = tc + y * (double(mhi(x, y)) / 255.0);
@@ -51,10 +49,10 @@ s30 = c30 / (area^2.5);
 %Rescaled rotation invariant moments
 ci1 = real(s11);
 ci2 = real(10 * s21 * s12);
-ci3 = 10 * real(s20 * s12 * s12);
-ci4 = 10 * imag(s20 * s12 * s12);
-ci5 = 100 * real(s30 * s12 * s12 * s12);
-ci6 = 100 * imag(s30 * s12 * s12 * s12);
+ci3 = 1000 * real(s20 * s12 * s12);
+ci4 = 1000 * imag(s20 * s12 * s12);
+ci5 = 1000000 * real(s30 * s12 * s12 * s12);
+ci6 = 1000000 * imag(s30 * s12 * s12 * s12);
 
 
 % bwperim supposedly only works on binary images, but it still gives an
