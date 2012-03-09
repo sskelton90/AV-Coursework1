@@ -1,6 +1,5 @@
 N = 24; %Sets of data
 M = 4; %Size of feature vectors
-%index = 3; %Which piece of data in each label to classify/test
 
 clearvars training_data training_classes;
 
@@ -149,6 +148,33 @@ for index=1:8,
     class3(end+1) = Classify(classify_data(3), 3, means, invcors, M, aprioris);
 end
 
-mean(class1)
-mean(class2)
-mean(class3)
+mean1 = mean(class1);
+mean2 = mean(class2);
+mean3 = mean(class3);
+
+correct1 = 0;
+for i=1:size1(1),
+    if class1(i) == 1,
+        correct1 = correct1 + 1;
+    end
+end
+percent_correct1 = (correct1 / size1(1)) * 100
+
+correct2 = 0;
+for i=1:size2(1),
+    if class2(i) == 2,
+        correct2 = correct2 + 1;
+    end
+end
+percent_correct2 = (correct2 / size2(1)) * 100
+
+correct3 = 0;
+for i=1:size3(1),
+    if class3(i) == 3,
+        correct3 = correct3 + 1;
+    end
+end
+percent_correct3 = (correct3 / size3(1)) * 100
+
+
+average_correct = (percent_correct1 + percent_correct2 + percent_correct3) / 3
