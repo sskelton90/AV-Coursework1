@@ -28,12 +28,10 @@ cc = tc / double(area);
 
 %Calculate translation invariant moment
 tim11 = TranslationInvariant(mhi, cr, cc, 1, 1); %translation invariant moment for u=1, v=1
-tim20 = TranslationInvariant(mhi, cr, cc, 2, 0);
 tim22 = TranslationInvariant(mhi, cr, cc, 2, 2);
 
 %Calculate scale invariant moment
 sim11 = ScaleInvariant(tim11, area, 1, 1);
-sim20 = ScaleInvariant(tim20, area, 2, 0);
 sim22 = ScaleInvariant(tim22, area, 2, 2);
 
 %Calculate rotation invariant moments
@@ -66,11 +64,16 @@ ci6 = 1000000 * imag(s30 * s12 * s12 * s12);
 perim = bwarea(bwperim(mhi,4));
 compactness = perim*perim / (4*pi*area);
 
-feature_vector = [compactness, ci1, ci2, ci3, ci4];
-% % 
+feature_vector = [ci2, ci4, sim11, ci6];
+%feature_vector = [sim11, ci4];
+%feature_vector = [ci1, sim20, sim11];
+%feature_vector = [compactness, ci1];
+%feature_vector = [compactness, ci1, ci2, ci3, ci4, ci5, ci6];
+
+% % % 
 % m1 = mean(feature_vector);
 % m2 = max(feature_vector);
-% % 
+% % % 
 % feature_vector = feature_vector - m1;
 % feature_vector = feature_vector / m2;
 

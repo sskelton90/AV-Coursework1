@@ -152,6 +152,7 @@ mean1 = mean(class1);
 mean2 = mean(class2);
 mean3 = mean(class3);
 
+%Calculate what percentage of predictions were correct
 correct1 = 0;
 for i=1:size1(1),
     if class1(i) == 1,
@@ -176,5 +177,5 @@ for i=1:size3(1),
 end
 percent_correct3 = (correct3 / size3(1)) * 100
 
-
+%Average percentage correct overall
 average_correct = (percent_correct1 + percent_correct2 + percent_correct3) / 3

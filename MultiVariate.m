@@ -5,4 +5,5 @@ function prob = MultiVariate(Vec,Mean,Invcor,apriori)
         n = length(Vec);
         wgt = 1/sqrt(det(inv(Invcor)));
         prob = apriori * ( 1 / (2*pi)^(n/2) ) * wgt * exp(-0.5*dist);
+        exp(-0.5*dist)
 

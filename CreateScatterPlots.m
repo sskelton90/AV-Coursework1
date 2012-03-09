@@ -52,9 +52,9 @@ for i=1:N,
     if isequal(classes(i), 1),
         colors(i) = 1;
     elseif isequal(classes(i), 2),
-        colors(i) = 34;
+        colors(i) = 30;
     else
-        colors(i) = 58;
+        colors(i) = 68;
     end
 end
 
